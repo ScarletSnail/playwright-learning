@@ -1,0 +1,1 @@
+//TO DO Add validation tests for registration input fields (negative cases)
