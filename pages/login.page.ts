@@ -15,7 +15,7 @@ export class LoginPage {
         this.userLoginLocator = this.page.getByText('Login');
         this.pageNameLocator = this.page.getByRole('link', { name: 'Automation Automation Practice' });
         this.signOutLocator = this.page.getByRole('button', { name: 'Sign Out' });
-        };
+    };
 
     async loginToTheApp(email: string, password: string) {
         await this.open();
@@ -25,23 +25,24 @@ export class LoginPage {
         await this.verifyLogin();
     }
 
-    async login(){
+    async login() {
         await this.userLoginLocator.click();
     }
-    async open (){
+    async open() {
         await this.page.goto('');
     }
 
-    async inputEmail(email: string){
+    async inputEmail(email: string) {
         await this.userEmailLocator.fill(email);
     }
 
-    async inputPassword(password: string){
+
+    async inputPassword(password: string) {
         await this.userPasswordLocator.fill(password);
     }
 
-    async verifyLogin(){
-        await this.pageNameLocator;
-        await this.signOutLocator;
+    async verifyLogin() {
+        await expect(this.pageNameLocator).toBeVisible();
+        await expect(this.signOutLocator).toBeVisible();
     }
 };

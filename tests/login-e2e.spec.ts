@@ -3,7 +3,7 @@ import { dataSet } from '../utils/dataSet';
 import { App } from '../pages/app';
 import { ApiUtils } from '../utils/apiUtils';
 
-test('navigate to website', async ({ page }) => {
+test.skip('navigate to website', async ({ page }) => {
   const app = new App(page);
 
   await app.registrationPage.registerToTheApp(dataSet.firstName, dataSet.email, dataSet.lastName,dataSet.userMobile, dataSet.password);

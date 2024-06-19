@@ -1,5 +1,4 @@
 import { Locator, Page, expect } from "@playwright/test";
-//TO DO divide registration to the app to the single methods
 
 export class RegistrationPage {
     page: Page;
@@ -15,8 +14,11 @@ export class RegistrationPage {
     registerButtonLocator: Locator;
     successfullCreationLocator: Locator;
     loginButtonLocator: Locator;
-    startRegistrationButtonLocator: Locator;
-
+    startRegistrationButtonButtonLocator: Locator;
+    firstNameInputErrorStateLocator: Locator;
+    emailInputErrorStateLocator: Locator;
+    phoneInputErrorStateLocator: Locator;
+    
     constructor(page: Page) {
         this.page = page;
         this.userEmailLocator = this.page.locator('#userEmail'); //can be transfered to vocabulary
@@ -31,19 +33,14 @@ export class RegistrationPage {
         this.registerButtonLocator= this.page.locator('#login');
         this.successfullCreationLocator = this.page.getByText('Account Created Successfully');
         this.loginButtonLocator = this.page.getByText('Login');
-        this.startRegistrationButtonLocator = this.page.getByRole('link', { name: 'Register' });
+        this.startRegistrationButtonButtonLocator = this.page.getByRole('link', { name: 'Register' });
+        this.firstNameInputErrorStateLocator = this.page.locator('#firstName.is-invalid');
+        this.emailInputErrorStateLocator = this.page.locator('#userEmail.is-invalid');
+        this.phoneInputErrorStateLocator = this.page.locator('#userMobile.is-invalid');
     };
 
-    async registerToTheApp(firstName: string, email: string, lastName: string, userMobile: string, password: string) {
-        await this.page.goto('');
-
-        await expect(this.page).toHaveTitle("Let's Shop");
-
+    async inputRegistrationForm(firstName: string, email: string, lastName: string, userMobile: string, password: string){
         await this.startRegistration();
-        await expect(this.page.locator('.login-title')).toBeVisible();
-
-        //TO DO create separate methods. To try: create one method "input" and pass locator and value
-
         await this.inputFirstName(firstName);
         await this.inputLastName(lastName);
         await this.inputEmail(email);
@@ -53,16 +50,27 @@ export class RegistrationPage {
 
         await this.selectGenger('Male');
         await this.confirmAge();
-
-        await this.page.pause();
-
-        await this.clickRegister();
-        await this.verifyCreation();
-        await this.loginAfterRegistration();
     }
 
     async startRegistration(){
-        await this.startRegistrationButtonLocator.click();
+        await this.navigateToRegistrationPage();
+        await this.startRegistrationButton();
+        await expect(this.page.locator('.login-title')).toBeVisible();
+    }
+
+    async registerToTheApp(firstName: string, email: string, lastName: string, userMobile: string, password: string) {
+        await this.inputRegistrationForm(firstName, email, lastName, userMobile, password);
+        await this.clickRegisterButton();
+        await this.verifyCreation();
+        await this.loginAfterRegistration();
+    }
+    async navigateToRegistrationPage(){
+        await this.page.goto('');
+        await expect(this.page).toHaveTitle("Let's Shop");
+    }
+
+    async startRegistrationButton(){
+        await this.startRegistrationButtonButtonLocator.click();
     };
 
     async inputEmail(email: string){
@@ -106,11 +114,15 @@ export class RegistrationPage {
         await expect(this.successfullCreationLocator).toBeVisible();
     };
 
-    async clickRegister(){
+    async clickRegisterButton(){
         await this.registerButtonLocator.click();       
     };
 
     async loginAfterRegistration(){
         await this.loginButtonLocator.click();
     };
+
+    async verifyValidation(errorMessage: string){
+        await expect(this.page.getByText(errorMessage)).toBeVisible();
+    }
 };
