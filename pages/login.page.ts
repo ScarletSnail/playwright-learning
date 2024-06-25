@@ -7,6 +7,8 @@ export class LoginPage {
     userLoginLocator: Locator;
     pageNameLocator: Locator;
     signOutLocator: Locator;
+    emailInputErrorStateLocator: Locator;
+    passwordInputErrorStateLocator: Locator;
 
     constructor(page: Page) {
         this.page = page;
@@ -15,6 +17,8 @@ export class LoginPage {
         this.userLoginLocator = this.page.getByText('Login');
         this.pageNameLocator = this.page.getByRole('link', { name: 'Automation Automation Practice' });
         this.signOutLocator = this.page.getByRole('button', { name: 'Sign Out' });
+        this.emailInputErrorStateLocator = this.page.locator('#userEmail.is-invalid');
+        this.passwordInputErrorStateLocator = this.page.locator('#userPassword.is-invalid');
     };
 
     async loginToTheApp(email: string, password: string) {
@@ -22,7 +26,6 @@ export class LoginPage {
         await this.inputEmail(email);
         await this.inputPassword(password);
         await this.login();
-        await this.verifyLogin();
     }
 
     async login() {
@@ -44,5 +47,9 @@ export class LoginPage {
     async verifyLogin() {
         await expect(this.pageNameLocator).toBeVisible();
         await expect(this.signOutLocator).toBeVisible();
+    }
+
+    async verifyValidation(errorMessage: string){
+        await expect(this.page.getByText(errorMessage)).toBeVisible();
     }
 };

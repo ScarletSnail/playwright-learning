@@ -15,7 +15,10 @@ export const dataSet = {
     emailNoDomain: 'username@',
     emailNoPrefix: '@example',
     userMobileLetters: '123abc',
-    userMobileLong: '1234567890123456789'
+    userMobileLong: '1234567890123456789',
+    wrongPassword: 'wrongPassword',
+    wrongEmail: 'dummytest@example.com',
+    emptyString: ''
 
 };
 export const validationMessages = {
@@ -30,5 +33,9 @@ export const validationMessages = {
     passwordRequired: 'Password is required',
     confirmPasswordRequired: 'Confirm Password is required',
     confirmPasswordMatch: 'Password and Confirm Password must match with each other',
+    loginEmailRequired: 'Email is required',
+    loginPasswordRequired: 'Password is required',
+    loginWrongEmailOrPassword: 'Incorrect email or password.',
+    loginEmailValidation: 'Enter Valid Email',
 }
 

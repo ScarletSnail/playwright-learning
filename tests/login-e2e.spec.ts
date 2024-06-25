@@ -8,6 +8,7 @@ test.skip('navigate to website', async ({ page }) => {
 
   await app.registrationPage.registerToTheApp(dataSet.firstName, dataSet.email, dataSet.lastName,dataSet.userMobile, dataSet.password);
   await app.loginPage.loginToTheApp(dataSet.email, dataSet.password);
+  await app.loginPage.verifyLogin();
   await page.pause();
 });
 
@@ -17,8 +18,6 @@ test.skip('api user creation', async ({ page }) => {
   const api = new ApiUtils(apiContext);
 
   const user = await api.createUser(dataSet.email);
-
-  //await app.registrationPage.registerToTheApp(dataSet.firstName, dataSet.email, dataSet.lastName,dataSet.userMobile, dataSet.password);
   await app.loginPage.loginToTheApp(user.userEmail, dataSet.password);
 });
 //TO DO Add test for buying a product

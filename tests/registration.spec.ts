@@ -1,5 +1,3 @@
-//TO DO Add validation tests for registration input fields (negative cases)
-
 import { test, request, expect } from '@playwright/test';
 import { dataSet, validationMessages } from '../utils/dataSet';
 import { App } from '../pages/app';
@@ -48,7 +46,7 @@ test.describe('validation', () => {
     test('email input should be required', async ({ page }) => {
         const app = new App(page);
 
-        await app.registrationPage.inputEmail('');
+        await app.registrationPage.inputEmail(dataSet.emptyString);
         await app.registrationPage.clickRegisterButton();
         await app.registrationPage.verifyValidation(validationMessages.emailRequired);
 
@@ -58,7 +56,7 @@ test.describe('validation', () => {
     const emails = [dataSet.emailNoDomain, dataSet.emailNoPrefix, dataSet.emailNoDomainNoPrefix];
 
     for (const email of emails) {
-        test.only(`email input format validation: ${email}`, async ({ page }) => {
+        test(`email input format validation: ${email}`, async ({ page }) => {
             const app = new App(page);
 
             await app.registrationPage.inputEmail(email);
@@ -66,14 +64,13 @@ test.describe('validation', () => {
             await app.registrationPage.verifyValidation(validationMessages.emailValidation);
 
             await expect(app.registrationPage.emailInputErrorStateLocator).toBeVisible();
-            await page.pause();
         });
     }
 
     test('phone number should be required', async ({ page }) => {
         const app = new App(page);
 
-        await app.registrationPage.inputUserMobile('');
+        await app.registrationPage.inputUserMobile(dataSet.emptyString);
         await app.registrationPage.clickRegisterButton();
         await app.registrationPage.verifyValidation(validationMessages.phoneRequired);
 
@@ -98,14 +95,5 @@ test.describe('validation', () => {
         await app.registrationPage.verifyValidation(validationMessages.phoneLengthValidation);
 
         await expect(app.registrationPage.phoneInputErrorStateLocator).toBeVisible();
-        await page.pause();
     });
-
-
 })
-
-
-
-
-
-//TO DO Add test for buying a product
