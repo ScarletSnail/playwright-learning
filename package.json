@@ -3,7 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-  "scripts": {},
+  "scripts": {
+    "allure": "npx allure serve allure-results",
+    "test": "npx playwright test"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ScarletSnail/playwright-learning.git"
@@ -17,6 +20,8 @@
   "homepage": "https://github.com/ScarletSnail/playwright-learning#readme",
   "devDependencies": {
     "@playwright/test": "^1.44.0",
-    "@types/node": "^20.12.12"
+    "@types/node": "^20.12.12",
+    "allure-commandline": "^2.29.0",
+    "allure-playwright": "^3.0.0-beta.3"
   }
 }
