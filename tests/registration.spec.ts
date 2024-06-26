@@ -4,10 +4,12 @@ import { App } from '../pages/app';
 import { RegistrationPage } from '../pages/registration.page';
 
 //read about difference beforeEach and beforeAll
+let password = 0;
 
 test.describe('validation', () => {
     test.beforeEach(async ({ page }) => {
         const app = new App(page);
+        password = 1;
 
         await app.registrationPage.startRegistration();
     })
@@ -15,6 +17,7 @@ test.describe('validation', () => {
     test('long first name validation: too long', async ({ page }) => {
         const app = new App(page);
 
+        console.log(password);
         await app.registrationPage.inputFirstName(dataSet.longFirstName);
         await app.registrationPage.clickRegisterButton();
         await app.registrationPage.verifyValidation(validationMessages.firstNameTooLongValidation);
