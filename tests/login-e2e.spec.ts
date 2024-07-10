@@ -30,8 +30,7 @@ test.only('buy a product', async ({ page }) => {
   await app.mainPage.addProductTocart();
 
   await page.locator('[routerlink="/dashboard/cart"]').click();
-
- // await app.cartPage.open();
+  
   await app.cartPage.confirmInCart();
   await app.paymentPage.placeOrder();
   await app.paymentPage.verifySuccessfull();
