@@ -37,5 +37,9 @@ export const validationMessages = {
     loginPasswordRequired: 'Password is required',
     loginWrongEmailOrPassword: 'Incorrect email or password.',
     loginEmailValidation: 'Enter Valid Email',
+};
+
+export const products = {
+    
 }
 

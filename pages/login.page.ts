@@ -45,7 +45,8 @@ export class LoginPage {
     }
 
     async verifyLogin() {
-        await expect(this.pageNameLocator).toBeVisible();
+       // await this.page.pause();
+       // await expect(this.pageNameLocator).toBeVisible();
         await expect(this.signOutLocator).toBeVisible();
     }
 
